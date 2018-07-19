@@ -1,4 +1,7 @@
 #!/bin/bash
+
+echo 'POST CHECKOUT!!!'
+
 NPM_RUN_BUILD_EXIT_STATUS=1
 if [[ -f package.json ]]; then
     NPM_RESOURCES=( 'package.json' 'package-lock.json' 'npm-shrinkwrap.json' )
