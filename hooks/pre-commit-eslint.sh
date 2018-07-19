@@ -1,6 +1,5 @@
 #!/bin/sh
 
-echo 'Running pre commit GIT hook'
 
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,1\}$")
 ESLINT="$(git rev-parse --show-toplevel)/node_modules/.bin/eslint"
