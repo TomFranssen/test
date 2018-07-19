@@ -11,15 +11,12 @@
 
 file="package.json"
 
-non-sample-file() {
-  echo $1 | sed "s/.sample//g"
-}
 
 if [[ $(git diff HEAD@{1}..HEAD@{0} -- "${file}" | wc -l) -gt 0 ]]; then
   echo
-  echo -e "======> The file \e[33;1m${file}\e[0m changed!"
+  echo -e "======> The file {file} changed!"
   echo
   git diff --color HEAD@{1}..HEAD@{0} -- "${file}" | sed 's/^/        /' | tail -n+5
   echo
-  echo -e "        Make sure to update your \e[33;1m$(non-sample-file $file)\e[0m."
+  echo -e "        Please make sure you install new dependencies by running npm install"
 fi
