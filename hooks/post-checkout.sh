@@ -1,44 +1,27 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# Install into:
+# - .git/hooks/post-merge
+# - .git/hooks/post-rewrite
+# - .git/hooks/post-checkout
+#
+# And make sure all are executable.
+#
+# Then change the $file appropriately. Enjoy.
+
 
 echo 'Running post checkout GIT hook'
+file="package.json"
 
-NPM_RUN_BUILD_EXIT_STATUS=1
-if [[ -f package.json ]]; then
+non-sample-file() {
+  echo $1 | sed "s/.sample//g"
+}
 
-echo '2222'
-
-    NPM_RESOURCES=( 'package.json' 'package-lock.json' 'npm-shrinkwrap.json' )
-    npm run --parseable | tee /dev/null | grep -q -v "\^build:"
-    NPM_RUN_BUILD_EXIT_STATUS=$?
-    for NPM_RESOURCE in "${NPM_RESOURCES[@]}"
-    do
-        DIFF=`git diff --shortstat $1..$2 -- ${NPM_RESOURCE}`
-        if [[ $DIFF != "" ]]; then
-            if [[ $NPM_RUN_BUILD_EXIT_STATUS -eq 0 ]]; then
-                echo -e "\033[1;33m${NPM_RESOURCE} has changed. Please run \"npm install && npm run build\"\033[0m"
-            else 
-                echo -e "\033[1;33m${NPM_RESOURCE} has changed. Please run \"npm install\"\033[0m"
-            fi
-            break
-        fi
-    done
+if [[ $(git diff HEAD@{1}..HEAD@{0} -- "${file}" | wc -l) -gt 0 ]]; then
+  echo
+  echo -e "======> The file \e[33;1m${file}\e[0m changed!"
+  echo
+  git diff --color HEAD@{1}..HEAD@{0} -- "${file}" | sed 's/^/        /' | tail -n+5
+  echo
+  echo -e "        Make sure to update your \e[33;1m$(non-sample-file $file)\e[0m."
 fi
-
-if [[ -f gulpfile.js ]] && [[ ! -f webpack.config.js ]]; then
-    DIFF=`git diff --shortstat $1..$2 -- gulpfile.js skin`
-    if [[ $DIFF != "" ]]; then
-        if [[ $NPM_RUN_BUILD_EXIT_STATUS -eq 0 ]]; then
-            echo -e "\033[1;33mgulpfile.js or skin folder has changed. Please run \"node_modules/.bin/gulp build\"\033[0m"
-        fi
-    fi
-fi
-
-if [[ -f webpack.config.js ]] && [[ $NPM_RUN_BUILD_EXIT_STATUS -eq 0 ]]; then
-    DIFF=`git diff --shortstat $1..$2 -- gulpfile.js webpack.config.js skin js`
-    if [[ $DIFF != "" ]]; then
-        if [[ $NPM_RUN_BUILD_EXIT_STATUS -eq 0 ]]; then
-            echo -e "\033[1;33mgulpfile.js, webpack.config.js, skin, or js have changed. Please run \"npm run build\"\033[0m"
-        fi
-    fi
-fi
-
