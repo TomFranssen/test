@@ -1,0 +1,21 @@
+{
+  "name": "git-hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "precommit": "./hooks/pre-commit-eslint.sh",
+    "postcheckout": "./hooks/postcheckout.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "husky": "^0.14.3"
+  },
+  "devDependencies": {
+    "@isaac.frontend/eslint-config-es6": "^2.1.0",
+    "@isaac.frontend/stylelint-config-scss": "^1.1.1",
+    "stylelint": "^9.3.0"
+  }
+}
