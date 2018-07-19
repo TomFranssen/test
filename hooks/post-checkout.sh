@@ -10,7 +10,6 @@
 # Then change the $file appropriately. Enjoy.
 
 
-echo 'Running post checkout GIT hook'
 file="package.json"
 
 
