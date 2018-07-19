@@ -1,7 +1,7 @@
 {
   "name": "git-hooks",
   "version": "1.0.0",
-  "description": "Lorum Ipsum",
+  "description": "Lorum Ipsum Test",
   "main": "index.js",
   "scripts": {
     "precommit": "./hooks/pre-commit-eslint.sh",
