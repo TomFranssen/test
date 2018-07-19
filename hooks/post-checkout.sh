@@ -14,7 +14,7 @@ file="package.json"
 
 if [[ $(git diff HEAD@{1}..HEAD@{0} -- "${file}" | wc -l) -gt 0 ]]; then
   echo
-  echo -e "======> The file {file} changed!"
+  echo -e "======> The file ${file} changed!"
   echo
   git diff --color HEAD@{1}..HEAD@{0} -- "${file}" | sed 's/^/        /' | tail -n+5
   echo
