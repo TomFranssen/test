@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "precommit": "./hooks/pre-commit-eslint.sh",
-    "QQpostcheckout": "./hooks/post-checkout.sh",
+    "postcheckout": "./hooks/post-checkout.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
