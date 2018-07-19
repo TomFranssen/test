@@ -4,6 +4,9 @@ echo 'Running post checkout GIT hook'
 
 NPM_RUN_BUILD_EXIT_STATUS=1
 if [[ -f package.json ]]; then
+
+echo '2222'
+
     NPM_RESOURCES=( 'package.json' 'package-lock.json' 'npm-shrinkwrap.json' )
     npm run --parseable | tee /dev/null | grep -q -v "\^build:"
     NPM_RUN_BUILD_EXIT_STATUS=$?
