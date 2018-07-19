@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo 'POST CHECKOUT!!!'
+echo 'Running post checkout GIT hook'
 
 NPM_RUN_BUILD_EXIT_STATUS=1
 if [[ -f package.json ]]; then
