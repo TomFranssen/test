@@ -16,9 +16,9 @@ file="package.json"
 
 if [[ $(git diff HEAD@{1}..HEAD@{0} -- "${file}" | wc -l) -gt 0 ]]; then
   echo
-  echo -e "======> The file ${file} changed!"
+  echo -e "The file ${file} changed!"
   echo
   git diff --color HEAD@{1}..HEAD@{0} -- "${file}" | sed 's/^/        /' | tail -n+5
   echo
-  echo -e "        Please make sure you install new dependencies by running \033[31mnpm install"
+  echo -e "Please make sure you install new dependencies by running \e[32mnpm install"
 fi
